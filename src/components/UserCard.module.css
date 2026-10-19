@@ -1,0 +1,70 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: #172033;
+    border: 1px solid #26354e;
+    border-radius: 1rem;
+    transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.card:hover {
+    border-color: #5eead4;
+    transform: translateY(-3px);
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #334155;
+}
+
+.content {
+    min-width: 0;
+}
+
+.heading {
+    align-items: center;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.heading h2 {
+    color: #f8fafc;
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.badge {
+    background: #134e4a;
+    border-radius: 999px;
+    color: #99f6e4;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.55rem;
+}
+
+.profession,
+.age {
+    margin: 0.35rem 0 0;
+}
+
+.profession {
+    color: #5eead4;
+    font-weight: 600;
+}
+
+.age {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}

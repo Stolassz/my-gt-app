@@ -1,0 +1,98 @@
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1120px;
+  padding: 0 2rem 5rem;
+}
+
+.learning-panel {
+  align-items: center;
+  background: linear-gradient(135deg, #172033, #1e293b);
+  border: 1px solid #26354e;
+  border-radius: 1.25rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1.2fr;
+  padding: 2rem;
+}
+
+.section-label {
+  color: #5eead4;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.learning-panel h2,
+.team-section h2 {
+  color: #f8fafc;
+  font-size: 1.6rem;
+  margin: 0.5rem 0 0;
+}
+
+.learning-panel ul {
+  color: #cbd5e1;
+  line-height: 1.8;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.learning-panel strong {
+  color: #f8fafc;
+}
+
+code {
+  color: #99f6e4;
+}
+
+.team-section {
+  margin-top: 4rem;
+}
+
+.section-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.counter {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.team-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card-note {
+  border-top: 1px solid #334155;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 1rem 0 0;
+  padding-top: 0.75rem;
+}
+
+@media (max-width: 800px) {
+  .learning-panel,
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 0 1rem 3rem;
+  }
+
+  .learning-panel {
+    padding: 1.25rem;
+  }
+}

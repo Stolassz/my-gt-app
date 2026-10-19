@@ -1,0 +1,68 @@
+.header {
+    align-items: center;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1120px;
+    padding: 1.25rem 2rem;
+}
+
+.brand {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.brand strong,
+.brand span {
+    display: block;
+}
+
+.brand strong {
+    color: #f8fafc;
+    font-size: 1rem;
+}
+
+.brand div span {
+    color: #64748b;
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+}
+
+.logo {
+    align-items: center;
+    background: #14b8a6;
+    border-radius: 0.7rem;
+    color: #042f2e;
+    display: flex !important;
+    font-size: 0.8rem;
+    font-weight: 800;
+    height: 2.25rem;
+    justify-content: center;
+    width: 2.25rem;
+}
+
+.navigation {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.navigation a {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.navigation a:hover {
+    color: #5eead4;
+}
+
+@media (max-width: 500px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .navigation {
+        display: none;
+    }
+}
