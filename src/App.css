@@ -8,6 +8,32 @@
   padding: 0 2rem 5rem;
 }
 
+.name-form {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  max-width: 360px;
+}
+
+.name-form label {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.name-form input {
+  background: #172033;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  font: inherit;
+  padding: 0.75rem;
+}
+
+.name-form input:focus {
+  border-color: #14b8a6;
+  outline: 2px solid rgba(20, 184, 166, 0.2);
+}
+
 .learning-panel {
   align-items: center;
   background: linear-gradient(135deg, #172033, #1e293b);
