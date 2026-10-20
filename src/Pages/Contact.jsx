@@ -1,4 +1,4 @@
-import { use, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Contact.css'
 
 const initialForm = {
@@ -16,6 +16,12 @@ export default function Contact() {
 
     const [status, setStatus] = useState({ type: '', message: '' });
 
+    const [loadingCep, setLoadingCep] = useState(false);
+
+    const [states, setStates] = useState([]);
+
+    const [cities, setCities] = useState([]);
+
     async function searchCep() {
         const cleanCep = form.cep.replace(/\D/g, '');
         
@@ -23,28 +29,59 @@ export default function Contact() {
             setStatus({ type: 'error', message: 'Digite um CEP válido!' })
         };
 
-        try {
+        setLoadingCep(true);
+
+        try {   
             const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
             if (!response.ok) throw new Error('Falha na busca do CEP!');
 
-            const address = await response.jason();
+            const address = await response.json();
             if (address.erro) throw new Error('CEP não encontrado!')
 
             setForm((current) => ({...current,
                 cep: cleanCep,
                 street: address.logradouro || '',
                 neighborhood: address.bairro || '',
-                stat: address.uf || '',
+                state: address.estado || '',
                 city: address.localidade || ''
             }));
 
             setStatus({ type: 'success', message: 'Endereço encontrado!' });
 
         } catch (erro) {
-            setStatus({ type: 'erro', message: error.message });
-
+            setStatus({ type: 'error', message: erro.message });
+        } finally {
+            setLoadingCep(false);
         };
 
+    };
+
+    useEffect(() => {
+        fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome').then((response) => {
+            if (!response.ok) throw new Error();
+            
+            return response.json();
+        })
+
+        .then(setStates)
+        .catch(() => setStatus({ type: 'error', message: 'Não foi possível carregar os estados'}))
+    }, []);
+   
+    useEffect(() => {
+        fetch('https://servicodados.ibge.gov.br/api/v1/localidades/municipios?orderBy=nome').then((response) => {
+            if (!response.ok) throw new Error();
+            
+            return response.json();
+        })
+
+        .then(setCities)
+        .catch(() => setStatus({ type: 'error', message: 'Não foi possível carregar as cidades'}))
+    }, []);
+
+    function handleChange (event) {
+        const {name, value} = event.target;
+
+        setForm((current) => ({...current, [name]: value}));
     };
 
     return (
@@ -64,12 +101,15 @@ export default function Contact() {
                             <div className="cep-field">
                                 <input 
                                     name="cep"
-                                    value={form.cep} 
-                                    inputMode="numeric" 
+                                    value={form.cep}
+                                    onChange={handleChange}
+                                    // onChange={(e) => (setForm((current) => ({current, cep: e.target.value})))}
+                                    inputMode="numeric"
                                     placeholder="00000-000" 
                                 />
                                 
-                                <button type="button" onClick={searchCep}>
+                                <button type="button" onClick={searchCep} disabled={loadingCep}>
+                                    {loadingCep ? 'Buscando...' : 'Buscar CEP'} 
                                 </button>
 
                             </div>
@@ -78,7 +118,11 @@ export default function Contact() {
                         <label>Estado
                             <select 
                                 name="state" 
+                                value={form.state}
+                                onChange={handleChange}
                             >
+                                <option>Selecione um Estado</option>
+                                {states.map((state) => <option key={state.id} value={state.nome}> {state.nome}</option>)}
                             </select>
 
                         </label>
@@ -86,7 +130,11 @@ export default function Contact() {
                         <label>Cidade
                             <select 
                                 name="city" 
+                                value={form.city}
+                                onChange={handleChange}
                             >
+                                <option>Selecione uma Cidade</option>
+                                {cities.map((city) => <option key={city.id} value={city.nome}> {city.nome}</option>)}
                             </select>
 
                         </label>
@@ -95,6 +143,8 @@ export default function Contact() {
                             <input 
                                 name="street" 
                                 placeholder="Nome da rua" 
+                                value={form.street}
+                                onChange={handleChange}
                             />
 
                         </label>
@@ -111,6 +161,9 @@ export default function Contact() {
                             <input 
                                 name="neighborhood" 
                                 placeholder="Seu bairro" 
+                                value={form.neighborhood}
+                                onChange={handleChange}
+
                             />
 
                         </label>
